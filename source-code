@@ -1,0 +1,102 @@
+puts "============ cRypT0M0T0^TM 'crypto-currency' investment calculation program ==============="
+puts ".."
+puts "..."
+puts "...."
+puts "....."
+puts "......"
+puts "......."
+puts "........."
+puts "..........."
+puts "............"
+puts "............."
+puts "................"
+puts "..................."
+puts ".,,,,,,,,,,,,,,,,,,..."
+puts ".,,,,,,,,,,,,,,,,,,..."
+puts ".,,,,,,,,,,,,,,,,,,......"
+puts ".,,,,,,,,,,,,,,,,,,,,,,,,,,"
+
+
+puts " Version 0.01 2018/Jan/1"
+
+class Bottomline_s  
+	attr_accessor :fix_income, :fix_expenditure, :total_investmenti, :totalb_expenditure, :month_range, :i_profi, :s_spend, :nper, :multiplier, :taxr, :taxacct
+
+end
+
+class Perpetuity 
+	attr_accessor :interest_pure, :acc, :frequency_c, :pvaccdelta
+end
+
+class Bottomline
+	attr_accessor :total_i, :total_e, :ratio_ic, :iprofit, :pv, :netprofit, :taxr 
+end 
+
+class Months 
+	attr_accessor :firstm, :lastm, :years
+	def yearrange 
+		gets.to_i
+	end 	 
+end 
+
+puts "please enter the tax rate on capital gians in your country, in Canada it is 50%"
+taxr = gets.to_f 
+puts "tax rate will not be calculated" if taxr == 0
+puts "please enter the first month in the period you wish to analyze. *numerical value*"
+firstm = gets.to_i 
+puts "please enter the last month in that period *numerical value*"
+lastm = gets.to_i 
+month_range = lastm - firstm 
+	raise "month range cannot be zero" if month_range == 0 
+	puts "please enter how many years of data you would like to analyze" if month_range > 12
+	yearrange = gets.to_i if month_range > 12 
+
+puts "analyzing #{month_range} months of data"
+
+puts "How much cash savings do you have to date"
+	pv = gets.to_i
+puts "what is the interest rate earned on your cash savings?"
+	i_cashsavings = gets.to_f
+	puts "how many times is savings account interest compounded per year"
+	nper = gets.to_i
+acc = pv * ( (1 + ( i_cashsavings / 100) / (nper) ) ** (month_range) ) 
+pvaccdelta = acc - pv 
+puts "your savings account realized " + "$" + pvaccdelta.to_s + " during the " + month_range.to_s + " month period"
+
+puts "what was the aggregate amount invested into your portfolio over the above specified period?"
+	i_investments = gets.to_f
+
+	puts "what is the current value of the investment now? CAD"
+
+total_investmenti = gets.to_f
+#add array here 
+	 i_profi = (total_investmenti - i_investments) / (pvaccdelta) * month_range.to_f
+print "you earned an equivalent interest rate of "
+puts i_profi.to_s + "% relative to your cash savings" 
+ print "The absolute interest rate realized on your crypto investment is "
+iprofit = (total_investmenti - i_investments) / (i_investments) * month_range.to_f 
+puts iprofit.to_s + "%"
+interest_pure = ( i_profi - i_cashsavings ) / i_cashsavings 
+
+print "your crypto gains are an order of magnitude "
+print interest_pure.to_s 
+1.times { print " larger " } if i_profi > i_cashsavings 
+1.times {print " smaller "} if i_cashsavings > i_profi
+	puts "than your bank savings returns"
+10.times { puts " please HODL more" } if i_cashsavings > i_profi 
+#break this up into smaller micro pieces so you can add individual investments 
+puts "please enter your fixed transaction costs (trading/mining)"
+fix_expenditure = gets.to_f 
+puts "how many multiples of this value would you like? (ex; trades, multiple miners)"
+multiplier = gets.to_f 
+total_e = (fix_expenditure * multiplier) + i_investments
+puts "your adjusted cost base (ACB) is $#{total_e}"
+print "after costs, your net profit on the books for crypto is $" 
+netprofit = (total_investmenti - i_investments) - (fix_expenditure * multiplier)
+puts netprofit
+print "your taxable capital gains are #{taxr} percent of your net profit, which is $"
+taxacct = netprofit * (taxr / 100) 
+puts taxacct 
+puts ""
+
+
